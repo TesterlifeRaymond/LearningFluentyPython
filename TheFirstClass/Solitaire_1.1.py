@@ -81,8 +81,4 @@ if __name__ == '__main__':
 #   Question?
 """
 当前的设计是不可洗牌的, 因为这摞牌是不可变的 immutable类型
-shuffle(deck._cards)
-print(deck._cards)
-
-或按照书中提到的__setitem__
 """

@@ -224,7 +224,6 @@ class Cards:
     def __init__(self, a):
         """
         :param a:
-        :param b:
         """
         self.a = a
     

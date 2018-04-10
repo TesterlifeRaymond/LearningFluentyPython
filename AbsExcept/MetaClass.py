@@ -14,17 +14,24 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+ENUM = (int, dict, list, tuple, str)
+
 
 def log(func):
     @wraps(func)
     def wrap(*args, **kwargs):
         if isinstance(func, staticmethod):
-            args = args[1::]
+            if len(args) > 0:
+                args = args[1::] if not isinstance(args[0], ENUM) else args
             func_name = func.__func__.__name__
             result = func.__func__(*args, **kwargs)
         elif isinstance(func, classmethod):
+            _args = [func.__class__]
+            if len(args) > 1:
+                args = args[1::] if not isinstance(args[0], ENUM) else args
+            _args.extend(list(args))
             func_name = func.__func__.__name__
-            result = func.__func__(*args, **kwargs)
+            result = func.__func__(*_args, **kwargs)
         else:
             func_name = func.__name__
             result = func(*args, **kwargs)
@@ -61,10 +68,18 @@ class TestMetaLogger(metaclass=LoggerMeta):
     @classmethod
     def test_bbb_log(cls, a, b):
         return a, b
+    
+    @staticmethod
+    def test_ccc_log():
+        return 111
 
 
 if __name__ == '__main__':
     instance = TestMetaLogger()
+    print(TestMetaLogger.test_func_log(7, 8))
+    print(TestMetaLogger.test_bbb_log(9, 10))
     print(instance.test_aaa_log(1, 2))
     print(instance.test_func_log(3, 4))
     print(instance.test_bbb_log(5, 6))
+    print(TestMetaLogger.test_ccc_log())
+    print(instance.test_ccc_log())

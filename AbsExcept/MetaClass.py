@@ -27,7 +27,7 @@ def log(func):
             result = func.__func__(*args, **kwargs)
         elif isinstance(func, classmethod):
             _args = [func.__class__]
-            if len(args) > 1:
+            if len(args) > 0:
                 args = args[1::] if not isinstance(args[0], ENUM) else args
             _args.extend(list(args))
             func_name = func.__func__.__name__
@@ -72,6 +72,10 @@ class TestMetaLogger(metaclass=LoggerMeta):
     @staticmethod
     def test_ccc_log():
         return 111
+    
+    @classmethod
+    def test_ddd_log(cls):
+        return 222
 
 
 if __name__ == '__main__':
@@ -83,3 +87,5 @@ if __name__ == '__main__':
     print(instance.test_bbb_log(5, 6))
     print(TestMetaLogger.test_ccc_log())
     print(instance.test_ccc_log())
+    print(TestMetaLogger.test_ddd_log())
+    print(instance.test_ddd_log())

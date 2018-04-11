@@ -47,8 +47,10 @@ class LoggerMeta(type):
     def __new__(mcs, name, bases, properties):
         wrap_properties = {}
         for key, value in properties.items():
-            if isinstance(value, (classmethod, staticmethod)):
-                wrap_properties[key] = log(value.__func__)
+            if isinstance(value, classmethod):
+                wrap_properties[key] = classmethod(log(value.__func__))
+            elif isinstance(value, staticmethod):
+                wrap_properties[key] = staticmethod(log(value.__func__))
             elif key.startswith('__') or isinstance(value, property):
                 wrap_properties[key] = value
             else:
@@ -58,6 +60,10 @@ class LoggerMeta(type):
 
 
 class TestMetaLogger(metaclass=LoggerMeta):
+    def __init__(self):
+        self.index = 1
+        self.end = 10
+
     @staticmethod
     def test_func_log(a, b):
         return a, b
@@ -76,6 +82,10 @@ class TestMetaLogger(metaclass=LoggerMeta):
     @classmethod
     def test_ddd_log(cls):
         return 222
+    
+    @property
+    def test_property(self):
+        return self.end
 
 
 if __name__ == '__main__':
@@ -89,3 +99,4 @@ if __name__ == '__main__':
     instance.test_ccc_log()
     TestMetaLogger.test_ddd_log()
     instance.test_ddd_log()
+    print(instance.test_property)

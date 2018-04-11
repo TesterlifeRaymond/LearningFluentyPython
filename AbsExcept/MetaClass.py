@@ -32,12 +32,9 @@ def log(func):
             _args.extend(list(args))
             func_name = func.__func__.__name__
             result = func.__func__(*_args, **kwargs)
-        elif isinstance(args[0], property):
-            print(args[0])
         else:
             func_name = func.__name__
             result = func(*args, **kwargs)
-            print(func_name)
         logger.info("[ Func {} Called ]".format(func_name))
         logger.info("[ Func Paramter ]: Args: {}, Kwargs: {}".format(args, kwargs))
         logger.info("[ Func Result ]: {}({}, {})".format(func_name, args, kwargs))

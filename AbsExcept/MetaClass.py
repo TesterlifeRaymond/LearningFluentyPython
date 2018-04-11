@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-ENUM = (int, dict, list, tuple, str)
+ENUM = (int, dict, list, tuple, str, set, type)
 
 
 def log(func):
@@ -32,9 +32,12 @@ def log(func):
             _args.extend(list(args))
             func_name = func.__func__.__name__
             result = func.__func__(*_args, **kwargs)
+        elif isinstance(args[0], property):
+            print(args[0])
         else:
             func_name = func.__name__
             result = func(*args, **kwargs)
+            print(func_name)
         logger.info("[ Func {} Called ]".format(func_name))
         logger.info("[ Func Paramter ]: Args: {}, Kwargs: {}".format(args, kwargs))
         logger.info("[ Func Result ]: {}({}, {})".format(func_name, args, kwargs))
@@ -49,7 +52,7 @@ class LoggerMeta(type):
         for key, value in properties.items():
             if isinstance(value, (classmethod, staticmethod)):
                 wrap_properties[key] = log(value.__func__)
-            if key.startswith('__'):
+            elif key.startswith('__') or isinstance(value, property):
                 wrap_properties[key] = value
             else:
                 wrap_properties[key] = log(value)
@@ -80,12 +83,12 @@ class TestMetaLogger(metaclass=LoggerMeta):
 
 if __name__ == '__main__':
     instance = TestMetaLogger()
-    print(TestMetaLogger.test_func_log(7, 8))
-    print(TestMetaLogger.test_bbb_log(9, 10))
-    print(instance.test_aaa_log(1, 2))
-    print(instance.test_func_log(3, 4))
-    print(instance.test_bbb_log(5, 6))
-    print(TestMetaLogger.test_ccc_log())
-    print(instance.test_ccc_log())
-    print(TestMetaLogger.test_ddd_log())
-    print(instance.test_ddd_log())
+    TestMetaLogger.test_func_log(7, 8)
+    TestMetaLogger.test_bbb_log(9, 10)
+    instance.test_aaa_log(1, 2)
+    instance.test_func_log(3, 4)
+    instance.test_bbb_log(5, 6)
+    TestMetaLogger.test_ccc_log()
+    instance.test_ccc_log()
+    TestMetaLogger.test_ddd_log()
+    instance.test_ddd_log()

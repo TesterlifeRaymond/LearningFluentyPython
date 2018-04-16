@@ -55,6 +55,7 @@ class LoggerMeta(type):
                 wrap_properties[key] = value
             else:
                 wrap_properties[key] = log(value)
+        properties.update({"logger": logger})
         properties.update(**wrap_properties)
         return type.__new__(mcs, name, bases, properties)
 

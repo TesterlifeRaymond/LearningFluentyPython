@@ -21,6 +21,21 @@ class TestIter:
         return self.data.pop()
 
 
+class Data:
+    def __init__(self, data_nums=0):
+        if not data_nums:
+            self.data = []
+        else:
+            self.data = list(range(data_nums))
+
+    def __iter__(self):
+        for item in self.data:
+            if not item:
+                continue
+            yield item
+
+
 if __name__ == '__main__':
-    for item in TestIter(10):
+    data = Data(5)
+    for item in data:
         print(item)

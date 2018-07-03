@@ -5,34 +5,25 @@
 @Version: 1.0
 """
 
-from os import chroot
+
+class X(object):
+
+    def __get__(self, obj, type=None):
+        return 0
+
+    def __set__(self, obj, value):
+        pass
 
 
-class TestSnippet(object):
-    """ doc_string """
+class Y(object):
+    x = X()
 
-    maxsize = 0
 
-    def function(self, args):
-        """
+y = Y()
+y.__dict__['x'] = 1
 
-        @param : args
-        @return: TODO
-        """
-        print(chroot)
-        print(self.maxsize)
+print(dir(y))
+print(vars(y))
 
-    def cal(self, args):
-        """
-
-        @param : args
-        @return: TODO
-        """
-
-    def jjj(self, args):
-        """
-            docstring
-        @param : args
-        @return: TODO
-        """
-        return
+print(y.x)
+assert y.x == 0

@@ -96,4 +96,6 @@ class Vector:
 
 if __name__ == '__main__':
     vector = Vector(3, 4)
+    vector_two = Vector(5, 1)
+    print(vector + vector_two)
     print(vector)

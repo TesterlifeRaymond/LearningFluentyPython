@@ -180,9 +180,12 @@ print(tokyo[0])
 
 print(City._fields)
 
+
 LatLong = namedtuple('LatLong', 'lat long')
 delhi_data = ('Delhi NCR', 'IN', 21.935, LatLong(28.613889, 77.2))
+print(delhi_data)
 delhi_data = City._make(delhi_data)
+print(delhi_data)
 print(delhi_data._asdict())
 
 for key, value in delhi_data._asdict().items():

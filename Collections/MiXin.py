@@ -30,6 +30,8 @@ class LoggerMappingMixin(dict):
 
 
 class SetOnceMappingMixin:
+    __slots__ = ()
+
     def __setitem__(self, key, value):
         if key in self:
             print(f"{key} is already in self")

@@ -6,24 +6,23 @@
 """
 
 
-class  ClassName(object):
+class ClassName(object):
     """ doc_string """
 
     def function(args):
         """
-        
+
         @param : args
         @return: TODO
         """
-
 
     def methods(self, args):
         """
-        
+
         @param : args
         @return: TODO
         """
-        
+
+
 if __name__ == "__main__":
     print(ClassName)
-

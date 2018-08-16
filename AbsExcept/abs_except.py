@@ -10,7 +10,6 @@
 
 class TimeoutExcept(Exception):
     def __init__(self, msg):
-        self.msg = msg
         super(TimeoutExcept).__init__()
 
 
@@ -19,4 +18,3 @@ if __name__ == '__main__':
         raise TimeoutExcept("连接超时")
     except TimeoutExcept as err:
         print(err)
-

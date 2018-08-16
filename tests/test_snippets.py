@@ -1,29 +1,28 @@
+# -*- coding: utf-8 -*-
 """
-@File: test_snippets
-@Author: Ray
-@Date: 2018-01-29 14:31:52
-@Version: 1.0
+    LearningFluentyPython.test_snippets
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    ThreadPoolExecutor
+
+    :copyright: (c) 2018 by  Raymond.
+    :last modified by 2018-07-09 17:20:19
 """
 
-
-class X(object):
-
-    def __get__(self, obj, type=None):
-        return 0
-
-    def __set__(self, obj, value):
-        pass
+import time
+import random
+from concurrent.futures import ThreadPoolExecutor
 
 
-class Y(object):
-    x = X()
+def get_max_num(max_num):
+    print(f"{max_num} is running")
+    return max_num
 
 
-y = Y()
-y.__dict__['x'] = 1
+if __name__ == "__main__":
+    max_num = (55, 32, 66, 7, 2)
+    thread = ThreadPoolExecutor(max_workers=3)
 
-print(dir(y))
-print(vars(y))
-
-print(y.x)
-assert y.x == 0
+    for item in max_num:
+        result = thread.submit(get_max_num, item)
+        print(result)

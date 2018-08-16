@@ -34,7 +34,7 @@ class Crawl(metaclass=LoggerMeta):
 
 async def main(crawl, url):
     result = await crawl.fetch(url)
-    crawl.logger.info("[ RESPONSE URL ]: {}".format(result.url))
+    crawl.logger.info("[ RESPONSE URL ]: {}".format(result.status))
     return result
 
 
@@ -43,11 +43,15 @@ if __name__ == '__main__':
     urls = [
         "http://testerlife.com",
         "http://163.com",
-        "http://httpbin.org/ip"
+        "http://httpbin.org/ip",
+        "http://testerlife.com",
+        "http://testerlife.com",
+        "http://testerlife.com",
+        "http://testerlife.com",
     ]
     tasks = []
     for url in urls:
         task = asyncio.ensure_future(main(crawl, url))
         tasks.append(task)
     result = loop.run_until_complete(asyncio.wait(tasks))
-    session.close()
+    crawl.session.close()

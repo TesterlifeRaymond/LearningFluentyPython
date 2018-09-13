@@ -104,8 +104,8 @@ if __name__ == "__main__":
     # spam_data_three = SpamManager("Ray").get_spam
     # print(spam_data_one is spam_data_three)
     # print(spam_data_one is spam_data_two)
-    # print(add(1, 2), add(3, 55), add(4, 12))
-    # print(add.ncalls)
+    print(add(1, 2), add(3, 55), add(4, 12))
+    print(add.ncalls)
     # print(add(5, 55), add.ncalls)
     # spam_data_one.bar(10, 6)
     # spam_data_three.bar(55, 23)

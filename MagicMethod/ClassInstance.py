@@ -4,6 +4,7 @@
 @Date: 2018-04-10 11:16:47
 @Version: 1.0
 """
+from json import dumps
 
 
 class MakeResult:

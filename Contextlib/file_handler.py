@@ -22,6 +22,7 @@ class FileHandler:
         基于Python __enter__ __exit__ 对上下文进行管理,
         通过read及write方法支持file文件同时读写的操作行为
     """
+
     def __init__(self, filename: str, mod: str = 'r', encoding: str ="utf-8"):
         """
             初始化类属性
@@ -67,12 +68,9 @@ def run(file, mod):
             print(obj.read())
 
 
-
-
 if __name__ == '__main__':
     while 1:
         try:
             run()
         except KeyboardInterrupt:
             break
-

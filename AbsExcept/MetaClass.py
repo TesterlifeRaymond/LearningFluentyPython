@@ -68,22 +68,22 @@ class TestMetaLogger(metaclass=LoggerMeta):
     @staticmethod
     def test_func_log(a, b):
         return a, b
-    
+
     def test_aaa_log(self, a, b):
         return a, b
 
     @classmethod
     def test_bbb_log(cls, a, b):
         return a, b
-    
+
     @staticmethod
     def test_ccc_log():
         return 111
-    
+
     @classmethod
     def test_ddd_log(cls):
         return 222
-    
+
     @property
     def test_property(self):
         return self.end

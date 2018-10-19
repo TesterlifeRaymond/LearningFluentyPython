@@ -73,4 +73,4 @@ def generator_tree(root, next_node, path=path):
 
 
 if __name__ == "__main__":
-    generator_tree(root, next_node, ".")
+    generator_tree(root, next_node, path)
